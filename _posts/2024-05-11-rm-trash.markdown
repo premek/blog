@@ -1,0 +1,30 @@
+---
+layout: post
+title:  "Bash: Remove files to trash"
+---
+
+After returning from holiday, my muscle memory failed and my fingers did something weird:
+```sh
+rm somethingiwantedtoremove -rf *
+```
+
+<!--more-->
+
+Luckily it was not my home folder or anything else but a folder called `downloads`. It contained years of important stuff.
+
+So I thought why `rm` does not allow undo?
+
+There is a `trash-cli` command that uses the same trash can as Gnome. You can install it with apt:
+```sh
+sudo apt install trash-cli
+```
+
+Aliasing `rm` to is is probably not a good idea but you can block yourself from using `rm` and remind yourself to use the alternative instead. `rm` will still work in scripts.
+
+```sh
+alias rm='echo "Use \"trash\" instead or prepend a backslash: \"\\rm\"."; false'
+alias trash="trash-put"
+#alias trash="gio trash"
+```
+
+`trash-cli` (`trash-put`) should work with Gnome, Kde, Xfce. There is also a `gio trash` command for Gnome.
