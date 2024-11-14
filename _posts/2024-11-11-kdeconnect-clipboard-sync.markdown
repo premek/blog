@@ -26,7 +26,7 @@ ZX11JJGGJS	device
 ```
 
 Run the following commands:
-```
+```G
 adb -d shell pm grant org.kde.kdeconnect_tp android.permission.READ_LOGS;
 adb -d shell appops set org.kde.kdeconnect_tp SYSTEM_ALERT_WINDOW allow;
 adb -d shell am force-stop org.kde.kdeconnect_tp;
@@ -39,3 +39,4 @@ and after you start it again and leave it running in the background the
 automatic clipboard sync should work.
 I had to restart kdeconnect one more time.
 
+**EDIT:** Unfortunately you have to repeat these steps if kdeconnect is restarted on your phone...
