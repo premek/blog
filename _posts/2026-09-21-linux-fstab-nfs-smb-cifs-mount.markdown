@@ -17,12 +17,12 @@ So start with installing `cifs-utils` and `nfs-common` packages (this is on Debi
 
 Add entries to `/etc/fstab` for CIFS / Samba:
 ```
-//192.168.0.1/Public   /mnt/public    cifs  defaults,_netdev,file_mode=0666,dir_mode=0777,credentials=/home/you/.smbpasswd 0 0
-//192.168.0.1/ReadOnly /mnt/readonly  cifs  defaults,ro,_netdev,credentials=/home/you/.smbpasswd 0 0
+//192.168.0.1/Public   /mnt/public    cifs  defaults,noatime,nosuid,file_mode=0666,dir_mode=0777,credentials=/home/you/.smbpasswd,_netdev,nofail,x-systemd.automount 0 0
+//192.168.0.1/ReadOnly /mnt/readonly  cifs  defaults,ro,credentials=/home/you/.smbpasswd,_netdev,nofail,x-systemd.automount 0 0
 ```
 Or for NFS:
 ```
-192.168.0.1:/nfs/Public  /mnt/nfs-public   nfs  defaults,nosuid,_netdev,vers=3 0 0
+192.168.0.1:/nfs/Public  /mnt/nfs-public   nfs  defaults,nosuid,vers=3,_netdev,nofail,x-systemd.automount 0 0
 ```
 After editing, run `systemctl daemon-reload`.
 
@@ -32,4 +32,5 @@ username=franta
 password=heslo
 ```
 
-This will hopefully result in the NFS shares to be mounted on boot.
+The automount option should result in the network shares to be mounted on the first access and not block boot in case it's not connected.
+
