@@ -17,12 +17,12 @@ So start with installing `cifs-utils` and `nfs-common` packages (this is on Debi
 
 Add entries to `/etc/fstab` for CIFS / Samba:
 ```
-//192.168.0.1/Public   /mnt/public    cifs  defaults,file_mode=0666,dir_mode=0777,credentials=/home/you/.smbpasswd 0 0
-//192.168.0.1/ReadOnly /mnt/readonly  cifs  defaults,ro,credentials=/home/you/.smbpasswd 0 0
+//192.168.0.1/Public   /mnt/public    cifs  defaults,_netdev,file_mode=0666,dir_mode=0777,credentials=/home/you/.smbpasswd 0 0
+//192.168.0.1/ReadOnly /mnt/readonly  cifs  defaults,ro,_netdev,credentials=/home/you/.smbpasswd 0 0
 ```
 Or for NFS:
 ```
-192.168.0.1:/nfs/Public  /mnt/nfs-public   nfs  rw,nosuid,vers=3 0 0
+192.168.0.1:/nfs/Public  /mnt/nfs-public   nfs  defaults,nosuid,_netdev,vers=3 0 0
 ```
 After editing, run `systemctl daemon-reload`.
 
@@ -31,3 +31,5 @@ The `.smbpasswd` file with your NAS user and password:
 username=franta
 password=heslo
 ```
+
+This will hopefully result in the NFS shares to be mounted on boot.
